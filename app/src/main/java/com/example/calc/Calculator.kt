@@ -3,6 +3,8 @@ package com.example.calc
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,10 +34,14 @@ fun CalculatorScreen(
             .fillMaxSize()
             .background(Color.DarkGray)
     ) {
+
         val firstOperator = state.firstOperation?.symbol ?: ""
         val secondOperator = state.secondOperation?.symbol ?: ""
+        val firstNumber = state.firstNumber
+        val secondNumber = state.secondNumber
+
         Text(
-            text = firstOperator + "ddjdf",
+            text = firstOperator + firstNumber + secondOperator + secondNumber,
             textAlign = TextAlign.Right,
             fontSize = 80.sp,
             color = Color.White,
@@ -62,7 +68,10 @@ fun CalculatorScreen(
             )
             CalculatorButton(
                 symbol = "Del",
-                onClick = {},
+                icon = Icons.Filled.Delete,
+                onClick = {
+                    onAction(CalculatorAction.Delete)
+                },
                 modifier = Modifier
                     .background(LightGray)
                     .aspectRatio(1f)
@@ -236,7 +245,7 @@ fun CalculatorScreen(
             )
             CalculatorButton(
                 symbol = ".",
-                onClick = {},
+                onClick = { onAction(CalculatorAction.Decimal) },
                 modifier = Modifier
                     .background(MediumGray)
                     .aspectRatio(1f)
@@ -244,7 +253,7 @@ fun CalculatorScreen(
             )
             CalculatorButton(
                 symbol = "=",
-                onClick = {},
+                onClick = { onAction(CalculatorAction.Calculate) },
                 modifier = Modifier
                     .background(Orange)
                     .aspectRatio(1f)
